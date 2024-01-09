@@ -7,7 +7,7 @@
 # 	3.	Convert all .png files in the current directory to .jpg and save them in the jpg directory, then delete the original .png files.
 
 Location=$1
-cd $Location
+cd "$Location"
 # Create a new directory named 'jpg'
 mkdir -p jpg
 

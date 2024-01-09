@@ -1,6 +1,6 @@
 #!/bin/bash
 Location=$1
-cd $Location
+cd "$Location"
 # Create a new directory named 'jpg'
 mkdir -p jpg
 
