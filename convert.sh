@@ -1,34 +1,59 @@
 #!/bin/bash
 location=$1
-cd "$location"
+cd "$location" || exit 1
 
 # Script name
 script_name="convert.sh"
 
 mkdir -p converted
-file_count=0
 
+read -p "Enter The Extension You Want To Convert To: " ext_input
+
+# Skip the script file
+file_count=0
 for file in *; do
-    # Skip the script file
     if [ "$file" = "$script_name" ]; then
         continue
     fi
 
-    if [ -f "$file" ]; then
+    if [ "$ext_input" == "mp4" ]; then
         output_file="converted/${file%.*}.mp4"
-        if ffpb -i "$file" -c:v libx264 -pix_fmt yuv420p -c:a aac "$output_file"; then
+        ffpb -i "$file" -c:v libx264 -pix_fmt yuv420p -c:a aac "$output_file" && {
             echo "Conversion successful: $output_file"
             rm "$file"
             echo "Removed original file: $file"
             ((file_count++))
-        else
-            echo "Conversion failed for $file. Check file format and codecs."
-        fi
+        }
+
+    elif [ "$ext_input" == "m4a" ]; then
+        output_file="converted/${file%.*}.m4a"
+        ffpb -i "$file" -c:a aac "$output_file" && {
+            echo "Conversion successful: $output_file"
+            rm "$file"
+            echo "Removed original file: $file"
+            ((file_count++))
+        }
+    
+    elif [ "$ext_input" == "mp3" ]; then
+        output_file="converted/${file%.*}.mp3"
+        ffpb -i "$file" -c:a libmp3lame "$output_file" && {
+            echo "Conversion successful: $output_file"
+            rm "$file"
+            echo "Removed original file: $file"
+            ((file_count++))
+        }
     fi
 done
 
 if [ $file_count -eq 0 ]; then
     echo "No files to convert. All Files Converted!"
 else
-    echo "$file_count files converted."
+    echo "$file_count file(s) converted."
 fi
+
+# Cleaning Up
+cd converted || exit 1
+mv * ../
+cd ..
+rm -r converted
+echo "Cleaning Done!"
