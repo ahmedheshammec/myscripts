@@ -32,3 +32,10 @@ if [ $file_count -eq 0 ]; then
 else
     echo "$file_count files converted."
 fi
+
+# Cleaning Up
+cd converted || exit 1
+mv * ../
+cd ..
+rm -r converted
+echo "Cleaning Done!"
