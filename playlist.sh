@@ -1,6 +1,10 @@
 #!/bin/bash
 
 location=$1
+
+# Expand the path
+eval location=$location
+
 cd "$location"
 
 # Prompt for playlist URL

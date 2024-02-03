@@ -1,7 +1,12 @@
 #!/bin/bash
 
 location=$1
+
+# Expand the path
+eval location=$location
+
 cd "$location"
+
 
 # Ask for the video URL
 read -p "Enter the video URL: " url

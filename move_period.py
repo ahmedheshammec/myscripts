@@ -21,6 +21,9 @@ def move_punctuation(line):
 
     line = line.replace('"', '')  
     line = line.replace("'", '')   
+    line = line.replace("- ", '')   
+    line = line.replace("<i>", '')   
+    line = line.replace("</i>", '')   
 
     punctuation = ['!', '،', ':', '...', '.', '-']
 
