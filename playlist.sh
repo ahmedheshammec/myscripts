@@ -2,10 +2,13 @@
 
 location=$1
 
-# Expand the path
-eval location=$location
+# Check if the location starts with ~
+if [[ "$location" == ~* ]]; then
+    # Expand the path if it starts with ~
+    eval location="$location"
+fi
 
-cd "$location"
+cd "$location" || { echo "Failed to change directory to $location"; exit 1; }
 
 # Prompt for playlist URL
 read -p "Enter playlist URL: " playlist_url
