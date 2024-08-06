@@ -9,6 +9,9 @@ rm -rf "/Users/Ahmed/Library/Application Support/Adobe/Common/Media Cache/"
 # Empty the cache folder
 rm -rf "/Users/Ahmed/Library/Application Support/Adobe/Common/Media Cache Files/"
 
+# Empty the soundQ folder
+rm -rf "/Users/Ahmed/Library/Application Support/Pro Sound Effects/SoundQ/diagnosticlogs/"
+
 # Empty the trash
 rm -rf ~/.Trash/*
 

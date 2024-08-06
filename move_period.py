@@ -22,6 +22,7 @@ def move_punctuation(line):
     line = line.replace('"', '')  
     line = line.replace("'", '')   
     line = line.replace("- ", '')   
+    line = line.replace("?", '')   
     line = line.replace("<i>", '')   
     line = line.replace("</i>", '')   
     line = line.replace("(", '')   
@@ -30,6 +31,7 @@ def move_punctuation(line):
     line = line.replace("  ", ' ')   
     line = re.sub(r"^((?!\d{2}:\d{2}:\d{2},\d{3}).)*$", lambda x: x.group(0).replace("-", ""), line)
     line = re.sub(r"^((?!\d{2}:\d{2}:\d{2},\d{3}).)*$", lambda x: x.group(0).replace("--", ""), line)
+    line = re.sub(r"^((?!\d{2}:\d{2}:\d{2},\d{3}).)*$", lambda x: x.group(0).replace(",", ""), line)
 
     punctuation = ['!', '،', ':', '...', '.', '-']
 
