@@ -1,21 +1,32 @@
 #!/bin/bash
 
-# Get file path from argument 
+# Get file path from argument
 filePath="$1"
 
 # Extract file name and extension
 fileName=$(basename "$filePath")
-extension="${fileName##*.}"
-fileName="${fileName%.*}"
+baseName="${fileName%.*}"
 
-# Rename original file to temp
-mv "$filePath" "${filePath%/*}/temp.$extension" 
+# Generate a random five-digit number
+randomNumber=$(printf "%05d" $((RANDOM % 100000)))
 
-# Encode temp file
-ffpb -i "${filePath%/*}/temp.$extension" -c:v libx264 -pix_fmt yuv420p -c:a aac "${filePath%/*}/${fileName}_output.$extension"
+# Create a temporary file name with random five digits for the output
+tempFileName="temp_$randomNumber.mp4"
+tempFilePath="${filePath%/*}/$tempFileName"
 
-# Rename output file to original name
-mv "${filePath%/*}/${fileName}_output.$extension" "$filePath"
+# Encode original file to the temporary file
+ffpb -i "$filePath" -c:v libx264 -pix_fmt yuv420p -c:a aac "$tempFilePath"
 
-# Delete temp file
-rm "${filePath%/*}/temp.$extension"
+# Check if the encoding was successful
+if [ $? -eq 0 ]; then
+    # Remove the original file
+    rm "$filePath"
+    
+    # Rename the temporary file to the original filename with .mp4 extension
+    mv "$tempFilePath" "${filePath%/*}/${baseName}.mp4"
+    
+    echo "Conversion successful. Original file removed and new file renamed."
+else
+    echo "Conversion failed. Original file untouched."
+    rm "$tempFilePath"
+fi
