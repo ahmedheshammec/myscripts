@@ -39,6 +39,9 @@ rm -rf "/Users/Ahmed/Library/Preferences/com.corel.coreldrawsuite.2022.update"
 # Empty the CorelDraw Update Folder
 rm -rf "/Library/Preferences/Corel/Downloads"
 
+# Empty the CleanShot X Media Folder
+rm -rf "//Users/Ahmed/Library/Application Support/CleanShot/media/"
+
 
 
 
