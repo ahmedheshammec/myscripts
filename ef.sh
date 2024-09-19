@@ -42,6 +42,7 @@ rm -rf "/Library/Preferences/Corel/Downloads"
 # Empty the CleanShot X Media Folder
 rm -rf "//Users/Ahmed/Library/Application Support/CleanShot/media/"
 
-
+# Empty the Messenger Temp Folder
+rm -rf "//Users/Ahmed/Library/Containers/com.facebook.archon/Data/tmp/"
 
 
